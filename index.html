@@ -12,14 +12,61 @@
       * {
         box-sizing: inherit;
       }
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      div#content {
+        max-width: 60em;
+        margin: 1em auto;
+      }
+      div#container-textarea {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1em;
+      }
+      div#container-textarea > textarea {
+        min-width: 20em;
+        flex-grow: 1;
+        height: 30em;
+      }
+      h1 {
+        margin: 0 auto;
+        text-align: center;
+      }
+      p.message {
+        background-color: green;
+        color: white;
+        padding: 0.5em;
+        text-align: center;
+        visibility: hidden;
+      }
+      p.message.show {
+        visibility: visible;
+      }
     </style>
+    <script src="parse.js" defer></script>
   </head>
   <body>
     <h1>
       WhatsApp Chat Engagement
     </h1>
+    <div id="content">
+      <p class="message" id="message">Copied</p>
+      <div id="container-textarea">
+        <textarea id="in" autofocus></textarea>
+        <textarea id="out"></textarea>
+      </div>
+    </div>
     <script>
-      console.log('script');
+      const textIn = document.querySelector('#in');
+      const textOut = document.querySelector('#out');
+      const message = document.querySelector('#message');
+      textIn.addEventListener('input', (evt) => {
+        const parsedText = parse(textIn.value);
+        textOut.value = parsedText;
+        navigator.clipboard.writeText(parsedText);
+        message.classList.add('show');
+      });
     </script>
   </body>
 </html>
