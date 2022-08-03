@@ -62,6 +62,7 @@
       const textOut = document.querySelector('#out');
       const message = document.querySelector('#message');
       textIn.addEventListener('input', (evt) => {
+        // function parse(text) is defined in parse.js
         const parsedText = parse(textIn.value);
         textOut.value = parsedText;
         navigator.clipboard.writeText(parsedText);
